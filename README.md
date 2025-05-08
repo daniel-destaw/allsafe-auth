@@ -1,7 +1,86 @@
-AllSafe Authentication LibraryOverviewAllSafe Authentication is a comprehensive Python library designed to simplify and enhance user authentication and authorization in your applications. It provides a wide range of authentication methods, multi-factor authentication (MFA) capabilities, robust user and role management, and security features.  It's designed to be modular and extensible, allowing you to tailor it to your specific security needs.  AllSafe aims to be the cornerstone of your application's security, providing a robust, flexible, and easy-to-use solution for managing user identity and access.FeaturesAllSafe Authentication offers a wide array of features, categorized as follows:Authentication Methods: The core of the library, providing various ways to verify user identity.Multi-Factor Authentication (MFA): Enhances security by requiring users to provide multiple forms of verification.User and Role Management: Tools for managing users, their roles, and permissions within your application.Security: Features that protect your application and user data.Utilities: Helper functions for common tasks related to authentication and security.Here's a detailed breakdown of each category:Authentication Methods:Active Directory: Seamlessly integrate with existing Active Directory deployments for centralized user authentication.  This allows users to use their existing network credentials to access your application. AllSafe handles the complexities of the LDAP protocol, making integration straightforward.TOTP (Time-based One-Time Password): Support for time-based OTP generation, as used by popular authenticator apps like Google Authenticator, Authy, and Microsoft Authenticator. TOTP codes change frequently (e.g., every 30 seconds), providing a high level of security.HOTP (HMAC-based One-Time Password): Support for counter-based OTP.  HOTP codes are generated based on a counter that increments with each use.  While less common than TOTP, HOTP can be useful in specific scenarios.Google Authenticator: Streamlined integration with the Google Authenticator app, allowing users to easily set up and use TOTP authentication.  This includes generating QR codes that users can scan with the app.OAuth2 and OpenID Connect: Support for modern authentication and authorization protocols.  OAuth2 enables secure delegated access, allowing users to grant applications limited access to their resources without sharing their credentials. OpenID Connect adds an identity layer to OAuth2, providing user identity information.SAML (Security Assertion Markup Language): Support for SAML-based Single Sign-On (SSO).  SAML allows users to log in once and access multiple web applications without re-authenticating, improving user experience and simplifying authentication management in enterprise environments.Multi-Factor Authentication (MFA):MFA Management: Enforce and manage MFA for enhanced security.  AllSafe provides tools to require users to set up and use MFA, and to manage their MFA devices.Backup Methods: Support for backup MFA methods like SMS and email.  In case a user loses access to their primary authentication device (e.g., their phone), they can use a backup method to regain access to their account.User and Role Management:User Management: User registration, authentication, and management.  AllSafe provides functions for creating, updating, and deleting user accounts, as well as handling user authentication (e.g., verifying passwords).Role-Based Access Control (RBAC): Define and manage user roles and permissions.  RBAC allows you to control what actions users are allowed to perform within your application, based on their assigned roles.User/Role data persistence with pluggable resolvers:LDAP: Resolve user and role information from LDAP servers.  This allows you to integrate with existing directory services.MySQL: Resolve user and role information from MySQL databases.PostgreSQL: Resolve user and role information from PostgreSQL databases.MongoDB: Resolve user and role information from MongoDB.Resolver Management: Abstraction layer for managing different resolvers.  This allows you to easily switch between different data sources for user and role information.Security:Password Policies: Enforce strong password policies and handle password resets.  AllSafe can help you ensure that users choose strong passwords and provides tools for handling password resets in a secure manner.Session Management: Securely manage user sessions.  This includes creating, validating, and destroying sessions, as well as protecting against session hijacking.Encryption: Utilities for data encryption.  AllSafe provides functions for encrypting sensitive data, such as passwords and personal information.Audit Logging: Log authentication and authorization activities for auditing and monitoring.  This allows you to track who accessed what and when, which is essential for security and compliance.Utilities:QR Code Generation: Generate QR codes for easy TOTP and HOTP setup.  Users can scan these QR codes with their authenticator apps to quickly configure their accounts.Configuration Loader: Flexible configuration loading.  AllSafe provides a way to load configuration settings from various sources, such as files or environment variables.Input Validators: Validate user input for security.  This helps prevent common security vulnerabilities, such as SQL injection and cross-site scripting.InstallationYou can install AllSafe Authentication using pip:pip install allsafe_auth
-This will install the library and all its dependencies.DependenciesAllSafe Authentication requires Python 3.7 or later.  It also has the following dependencies, which will be automatically installed by pip:cryptography: For encryption and hashing.  (Specify in setup.py)pyotp: For TOTP and HOTP functionality. (Specify in setup.py)(Any other dependencies should be listed here)Be sure to include a comprehensive list of dependencies in your setup.py file.Getting StartedHere's a general guide to getting started with AllSafe Authentication:Installation: Install the library using pip (see above).Configuration: Configure the library using the config_loader module.  This might involve setting up database connections, API keys, or other settings, depending on the authentication methods and features you are using.Authentication: Use the authentication methods in the authentication module (e.g., ActiveDirectory, TOTP) to authenticate users.MFA: If needed, use the mfa module to enable and manage multi-factor authentication.User/Role Management: Use the user_management module to manage users and roles.  This includes setting up a resolver to connect to your user/role database.Security: Leverage the security module for password management, session handling, encryption, and audit logging.Utilities: Use the functions in the utils module as needed.Quick Example (TOTP Authentication)from allsafe_auth.authentication.totp import TOTPAuth
-from allsafe_auth.utils.qr_code_generator import QRCodeGenerator
+# -*- coding: utf-8 -*-
 
+"""
+AllSafe Authentication Library
+
+A comprehensive Python library designed to simplify and enhance user
+authentication and authorization in your applications.
+"""
+
+__version__ = "0.1.0"
+__author__ = "daniel-destaw"
+__license__ = "MIT"
+__copyright__ = "Copyright (c) 2025 AllSafe"
+__github_link__ = "https://github.com/daniel-destaw/allsafe-auth.git"
+
+__readme__ = f"""
+# AllSafe Authentication Library
+
+[![GitHub](https://img.shields.io/github/license/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/blob/main/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth)
+[![GitHub Issues](https://img.shields.io/github/issues/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/pulls/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/pulls)
+
+**GitHub Repository:** [{__github_link__}]({__github_link__})
+
+AllSafe Authentication is a comprehensive Python library designed to simplify and enhance user authentication and authorization in your applications. It provides a wide range of authentication methods, multi-factor authentication (MFA) capabilities, robust user and role management, and security features. It's designed to be modular and extensible, allowing you to tailor it to your specific security needs. AllSafe aims to be the cornerstone of your application's security, providing a robust, flexible, and easy-to-use solution for managing user identity and access.
+
+## Features
+
+AllSafe Authentication offers a wide array of features, categorized as follows:
+
+* **Authentication Methods:** The core of the library, providing various ways to verify user identity.
+* **Multi-Factor Authentication (MFA):** Enhances security by requiring users to provide multiple forms of verification.
+* **User and Role Management:** Tools for managing users, their roles, and permissions within your application.
+* **Security:** Features that protect your application and user data.
+* **Utilities:** Helper functions for common tasks related to authentication and security.
+
+Here's a detailed breakdown of each category:
+
+### Authentication Methods:
+
+* **Active Directory:** Seamlessly integrate with existing Active Directory deployments for centralized user authentication. This allows users to use their existing network credentials to access your application. AllSafe handles the complexities of the LDAP protocol, making integration straightforward.
+* **TOTP (Time-based One-Time Password):** Support for time-based OTP generation, as used by popular authenticator apps like Google Authenticator, Authy, and Microsoft Authenticator. TOTP codes change frequently (e.g., every 30 seconds), providing a high level of security.
+* **HOTP (HMAC-based One-Time Password):** Support for counter-based OTP. HOTP codes are generated based on a counter that increments with each use. While less common than TOTP, HOTP can be useful in specific scenarios.
+* **Google Authenticator:** Streamlined integration with the Google Authenticator app, allowing users to easily set up and use TOTP authentication. This includes generating QR codes that users can scan with the app.
+* **OAuth2 and OpenID Connect:** Support for modern authentication and authorization protocols. OAuth2 enables secure delegated access, allowing users to grant applications limited access to their resources without sharing their credentials. OpenID Connect adds an identity layer to OAuth2, providing user identity information.
+* **SAML (Security Assertion Markup Language):** Support for SAML-based Single Sign-On (SSO). SAML allows users to log in once and access multiple web applications without re-authenticating, improving user experience and simplifying authentication management in enterprise environments.
+
+### Multi-Factor Authentication (MFA):
+
+* **MFA Management:** Enforce and manage MFA for enhanced security. AllSafe provides tools to require users to set up and use MFA, and to manage their MFA devices.
+* **Backup Methods:** Support for backup MFA methods like SMS and email. In case a user loses access to their primary authentication device (e.g., their phone), they can use a backup method to regain access to their account.
+
+### User and Role Management:
+
+* **User Management:** User registration, authentication, and management. AllSafe provides functions for creating, updating, and deleting user accounts, as well as handling user authentication (e.g., verifying passwords).
+* **Role-Based Access Control (RBAC):** Define and manage user roles and permissions. RBAC allows you to control what actions users are allowed to perform within your application, based on their assigned roles.
+* **User/Role data persistence with pluggable resolvers:**
+    * **LDAP:** Resolve user and role information from LDAP servers. This allows you to integrate with existing directory services.
+    * **MySQL:** Resolve user and role information from MySQL databases.
+    * **PostgreSQL:** Resolve user and role information from PostgreSQL databases.
+    * **MongoDB:** Resolve user and role information from MongoDB.
+* **Resolver Management:** Abstraction layer for managing different resolvers. This allows you to easily switch between different data sources for user and role information.
+
+### Security:
+
+* **Password Policies:** Enforce strong password policies and handle password resets. AllSafe can help you ensure that users choose strong passwords and provides tools for handling password resets in a secure manner.
+* **Session Management:** Securely manage user sessions. This includes creating, validating, and destroying sessions, as well as protecting against session hijacking.
+* **Encryption:** Utilities for data encryption. AllSafe provides functions for encrypting sensitive data, such as passwords and personal information.
+* **Audit Logging:** Log authentication and authorization activities for auditing and monitoring. This allows you to track who accessed what and when, which is essential for security and compliance.
+
+### Utilities:
+
+* **QR Code Generation:** Generate QR codes for easy TOTP and HOTP setup. Users can scan these QR codes with their authenticator apps to quickly configure their accounts.
+* **Configuration Loader:** Flexible configuration loading. AllSafe provides a way to load configuration settings from various sources, such as files or environment variables.
+* **Input Validators:** Validate user input for security. This helps prevent common security vulnerabilities, such as SQL injection and cross-site scripting.
+
+## Installation
+
+You can install AllSafe Authentication using pip:
+
+```bash
+pip install allsafe_auth
 #  Ideally, the secret would be stored securely per user in your database
 secret = TOTPAuth.generate_secret()
 totp_auth = TOTPAuth(secret=secret)
@@ -101,6 +180,33 @@ if __name__ == "__main__":
         print("OTP verification successful!")
     else:
         print("OTP verification failed!")
-ExamplesThe examples/ directory contains example projects demonstrating how to integrate AllSafe Authentication into web applications.examples/usage_totp.py: A basic example of how to use TOTP authentication.examples/flask_example/: A complete example of integrating AllSafe Authentication into a Flask application.examples/django_example/: A complete example of integrating AllSafe Authentication into a Django application.DocumentationThe complete documentation for AllSafe Authentication is available in the docs/ directory.  It includes:README.md: This file (the main project documentation).API_REFERENCE.md: A detailed API reference guide.You can also find the documentation online at [link to your documentation on Read the Docs, GitHub Pages, or similar].  If you have online documentation, replace this with the actual link.TestingThe tests/ directory contains unit and integration tests for AllSafe Authentication.  You can run the tests using pytest:pip install pytest
-pytest
-It's highly recommended to run the tests after installing AllSafe Authentication to ensure that everything is working correctly.  You can also run the tests after making changes to the library to ensure that your changes haven't introduced any regressions.ContributingWe welcome contributions to AllSafe Authentication!  Please see our Contributing Guidelines for details on how to get involved.  (Create this file if you want contributions)Here are some ways you can contribute:Report bugs: If you find a bug, please submit an issue on the project's issue tracker.Suggest features: If you have an idea for a new feature, please submit an issue on the project's issue tracker.Write code: You can contribute code by submitting a pull request.  Please make sure your code follows the project's coding style and includes unit tests.Write documentation: You can contribute to the documentation by submitting a pull request.Spread the word: You can help spread the word about AllSafe Authentication by telling others about it.LicenseAllSafe Authentication is licensed under the MIT License.  See the LICENSE file for more information.The MIT License is a permissive open-source license that allows you to use, modify, and distribute the software for almost any purpose.
+
+# -*- coding: utf-8 -*-
+
+"""
+AllSafe Authentication Library
+
+A comprehensive Python library designed to simplify and enhance user
+authentication and authorization in your applications.
+"""
+
+__version__ = "0.1.0"
+__author__ = "daniel-destaw"
+__license__ = "MIT"
+__copyright__ = "Copyright (c) 2025 AllSafe"
+__github_link__ = "https://github.com/daniel-destaw/allsafe-auth.git"
+
+__readme__ = f"""
+# AllSafe Authentication Library
+
+[![GitHub](https://img.shields.io/github/license/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/blob/main/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth)
+[![GitHub Issues](https://img.shields.io/github/issues/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/pulls/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/pulls)
+
+**GitHub Repository:** [{__github_link__}]({__github_link__})
+
+AllSafe Authentication offers a straightforward way to secure your Python applications with various authentication and authorization features. Check out the examples and documentation to get started! Contributions are welcome.
+"""
+
+__all__ = ["__version__", "__author__", "__license__", "__copyright__", "__github_link__", "__readme__"]
