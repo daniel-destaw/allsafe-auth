@@ -1,19 +1,3 @@
-# -*- coding: utf-8 -*-
-
-"""
-AllSafe Authentication Library
-
-A comprehensive Python library designed to simplify and enhance user
-authentication and authorization in your applications.
-"""
-
-__version__ = "0.1.0"
-__author__ = "daniel-destaw"
-__license__ = "MIT"
-__copyright__ = "Copyright (c) 2025 AllSafe"
-__github_link__ = "https://github.com/daniel-destaw/allsafe-auth.git"
-
-__readme__ = f"""
 # AllSafe Authentication Library
 
 [![GitHub](https://img.shields.io/github/license/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/blob/main/LICENSE)
@@ -21,7 +5,9 @@ __readme__ = f"""
 [![GitHub Issues](https://img.shields.io/github/issues/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/pulls/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/pulls)
 
-**GitHub Repository:** [{__github_link__}]({__github_link__})
+**GitHub Repository:** [{__github_link__}]
+
+https://github.com/daniel-destaw/allsafe-auth.git
 
 AllSafe Authentication is a comprehensive Python library designed to simplify and enhance user authentication and authorization in your applications. It provides a wide range of authentication methods, multi-factor authentication (MFA) capabilities, robust user and role management, and security features. It's designed to be modular and extensible, allowing you to tailor it to your specific security needs. AllSafe aims to be the cornerstone of your application's security, providing a robust, flexible, and easy-to-use solution for managing user identity and access.
 
@@ -81,7 +67,10 @@ You can install AllSafe Authentication using pip:
 
 ```bash
 pip install allsafe_auth
+```
+
 #  Ideally, the secret would be stored securely per user in your database
+```python
 secret = TOTPAuth.generate_secret()
 totp_auth = TOTPAuth(secret=secret)
 
@@ -90,10 +79,12 @@ account_name = "user@example.com"  #  Use the user's email or username
 issuer_name = "MyApplication"      #  The name of your application
 qr_code_data = QRCodeGenerator.generate_uri(issuer_name, account_name, secret)
 print(f"QR Code Data: {qr_code_data}") #  Display this to the user (e.g., in a web page)
-
+```
 #  In a real application, you would display the QR code to the user
 #  and prompt them to enter the TOTP code from their authenticator app.
 #  For this example, we'll just simulate the user entering a code.
+
+```python
 user_code = input("Enter the TOTP code from your authenticator app: ")
 
 if totp_auth.verify(user_code):
@@ -129,9 +120,10 @@ if __name__ == "__main__":
         print(f"QR code for HOTP saved as {qr_filename}")
     except Exception as e:
         print(f"Error generating or saving QR code: {e}")
-
+```
     #  In a real application, you would display the QR code and prompt the user for the HOTP code.
     #  This is just a simulation for demonstration.
+```python
     user_code = input("Enter the HOTP code from your authenticator app: ")
     if hotp_generator.verify(user_code, counter=initial_counter):
         print("HOTP verification successful")
@@ -155,7 +147,7 @@ if __name__ == "__main__":
         print("HOTP code is valid.")
     else:
         print("HOTP code is invalid.")
-
+```
     #  IMPORTANT:  For HOTP, you MUST increment and store the counter value 
     #  after each successful verification.  This is critical for security.
     #  The next verification must use a counter value that is greater 
@@ -164,7 +156,7 @@ if __name__ == "__main__":
     #  next_counter_value = counter_value + 1
     #  Store next_counter_value in your database, associated with the user.
 Quick Example (TOTP Verification)from allsafe_auth.authentication.totp import TOTP
-
+```python
 if __name__ == "__main__":
     # The same secret key used to generate the TOTP code
     secret_key = "JBSWY3DPEHPK3PXP"
@@ -182,7 +174,7 @@ if __name__ == "__main__":
         print("OTP verification failed!")
 
 # -*- coding: utf-8 -*-
-
+```
 """
 AllSafe Authentication Library
 
