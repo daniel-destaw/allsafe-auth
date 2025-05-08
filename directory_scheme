@@ -1,0 +1,58 @@
+allsafe-auth/
+├── allsafe_auth/                     # Core Authentication Library Package
+│   ├── __init__.py                   # Package Initialization
+│   ├── authentication/               # Authentication Methods
+│   │   ├── __init__.py
+│   │   ├── active_directory.py       # Active Directory Authentication
+│   │   ├── totp.py                   # TOTP (Time-based OTP)
+│   │   ├── hotp.py                   # HOTP (Counter-based OTP)
+│   │   ├── google_authenticator.py   # Google Authenticator Integration
+│   │   ├── oauth2.py                 # OAuth2 and OpenID Connect
+│   │   └── saml.py                   # SAML SSO Authentication
+│   ├── mfa/                         # Multi-Factor Authentication Management
+│   │   ├── __init__.py
+│   │   ├── mfa_manager.py            # MFA Management Logic
+│   │   └── backup_methods.py         # Backup Methods (SMS, Email)
+│   ├── user_management/              # User and Role Management
+│   │   ├── __init__.py
+│   │   ├── user_manager.py           # User Registration and Management
+│   │   ├── role_manager.py           # Role-Based Access Control (RBAC)
+│   │   ├── resolvers/                # Directory for all resolvers
+│   │   │   ├── __init__.py
+│   │   │   ├── ldap_resolver.py      # LDAP Resolver
+│   │   │   ├── mysql_resolver.py     # MySQL Resolver
+│   │   │   ├── postgresql_resolver.py # PostgreSQL Resolver
+│   │   │   ├── mongodb_resolver.py   # MongoDB Resolver
+│   │   │   └── resolver_manager.py   # Resolver Management
+│   ├── security/                     # Security and Compliance
+│   │   ├── __init__.py
+│   │   ├── password_manager.py       # Password Policies and Reset
+│   │   ├── session_manager.py        # Session Management
+│   │   ├── encryption.py             # Encryption Utilities
+│   │   └── audit_logging.py          # Audit and Monitoring Logs
+│   └── utils/                        # Utility Functions
+│       ├── __init__.py
+│       ├── qr_code_generator.py      # QR Code Generation (for TOTP)
+│       ├── config_loader.py          # Configuration Loader
+│       └── validators.py             # Input Validators
+├── examples/                         # Example Projects and Usage
+│   ├── flask_example/                # Flask Integration Example
+│   └── django_example/               # Django Integration Example
+├── tests/                            # Unit and Integration Tests
+│   ├── __init__.py
+│   ├── test_active_directory.py
+│   ├── test_totp.py
+│   ├── test_oauth2.py
+│   ├── test_saml.py
+│   └── test_user_management.py
+├── docs/                             # Documentation
+│   ├── README.md                     # Main Project Documentation
+│   └── API_REFERENCE.md              # API Reference Guide
+├── dist/                             # Distribution Files (Generated during packaging)
+├── build/                            # Build Files (Generated during packaging)
+├── allsafe_auth.egg-info/            # Egg Info Directory (Generated during packaging)
+├── .gitignore                        # Git Ignore File
+├── LICENSE                           # License File (MIT License)
+├── setup.py                          # Setup Script for Packaging
+├── pyproject.toml                    # Optional Build Configuration
+└── README.md                         # Project Description
