@@ -3,10 +3,6 @@ README.md
 pyproject.toml
 setup.py
 allsafe_auth/__init__.py
-allsafe_auth.egg-info/PKG-INFO
-allsafe_auth.egg-info/SOURCES.txt
-allsafe_auth.egg-info/dependency_links.txt
-allsafe_auth.egg-info/top_level.txt
 allsafe_auth/authentication/__init__.py
 allsafe_auth/authentication/active_directory.py
 allsafe_auth/authentication/google_authenticator.py
@@ -35,6 +31,10 @@ allsafe_auth/utils/__init__.py
 allsafe_auth/utils/config_loader.py
 allsafe_auth/utils/qr_code_generator.py
 allsafe_auth/utils/validators.py
+allsafe_authentication.egg-info/PKG-INFO
+allsafe_authentication.egg-info/SOURCES.txt
+allsafe_authentication.egg-info/dependency_links.txt
+allsafe_authentication.egg-info/top_level.txt
 tests/__init__.py
 tests/list_users.py
 tests/test_active_directory.py

@@ -6,12 +6,12 @@ with open("requirements.txt", "r") as f:
     requirements = f.read().splitlines()
 
 setup(
-    name="allsafe_auth",
-    version="0.1.2",
+    name="allsafe-authentication",
+    version="0.0.1",
     packages=find_packages(),
     install_requires=requirements,
     author="Daniel Destaw",
-    author_email="daniel@allsafeet.com",
+    author_email="daniel@allsafe.com",
     description="A complete authentication library including TOTP, HOTP, Active Directory, and more.",
     long_description=open("README.md").read() if os.path.exists("README.md") else "",
     long_description_content_type="text/markdown",

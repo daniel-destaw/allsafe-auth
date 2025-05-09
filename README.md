@@ -198,7 +198,7 @@ __readme__ = f"""
 
 **GitHub Repository:** [{__github_link__}]({__github_link__})
 
-AllSafe Authentication offers a straightforward way to secure your Python applications with various authentication and authorization features. Check out the examples and documentation to get started! Contributions are welcome.
+AllSafe Authentication offers a straightforward way to secure your Python applications with various authentication and authorization features. Check out the examples and documentation to get started! Contributions are welcome. Allsafe
 """
 
 __all__ = ["__version__", "__author__", "__license__", "__copyright__", "__github_link__", "__readme__"]
