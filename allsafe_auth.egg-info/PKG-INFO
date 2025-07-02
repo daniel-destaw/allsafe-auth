@@ -1,25 +1,35 @@
-Metadata-Version: 2.1
-Name: allsafe-authentication
-Version: 1.1
+Metadata-Version: 2.4
+Name: allsafe_auth
+Version: 1.1.1
 Summary: A complete authentication library including TOTP, HOTP, Active Directory, and more.
-Home-page: UNKNOWN
 Author: Daniel Destaw
 Author-email: daniel@allsafe.com
-License: UNKNOWN
-Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
 License-File: LICENSE
+Requires-Dist: python-ldap>=3.4.0
+Requires-Dist: ldap3>=2.9
+Requires-Dist: qrcode>=8.2
+Requires-Dist: Pillow>=11.2.1
+Requires-Dist: cryptography>=39.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
 
 # AllSafe Authentication Library
 
 [![GitHub](https://img.shields.io/github/license/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/blob/main/LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth)
 [![GitHub Issues](https://img.shields.io/github/issues/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/pulls/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/pulls)
 
 **GitHub Repository:** [{__github_link__}]
 
@@ -85,7 +95,7 @@ You can install AllSafe Authentication using pip:
 pip install allsafe_auth
 ```
 
-#  Ideally, the secret would be stored securely per user in your database
+## Ideally, the secret would be stored securely per user in your database
 ```python
 secret = TOTPAuth.generate_secret()
 totp_auth = TOTPAuth(secret=secret)
@@ -96,9 +106,7 @@ issuer_name = "MyApplication"      #  The name of your application
 qr_code_data = QRCodeGenerator.generate_uri(issuer_name, account_name, secret)
 print(f"QR Code Data: {qr_code_data}") #  Display this to the user (e.g., in a web page)
 ```
-#  In a real application, you would display the QR code to the user
-#  and prompt them to enter the TOTP code from their authenticator app.
-#  For this example, we'll just simulate the user entering a code.
+## In a real application, you would display the QR code to the user  and prompt them to enter the TOTP code from their authenticator app. For this example, we'll just simulate the user entering a code.
 
 ```python
 user_code = input("Enter the TOTP code from your authenticator app: ")
@@ -137,8 +145,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error generating or saving QR code: {e}")
 ```
-    #  In a real application, you would display the QR code and prompt the user for the HOTP code.
-    #  This is just a simulation for demonstration.
+## In a real application, you would display the QR code and prompt the user for the HOTP code.This is just a simulation for demonstration.
 ```python
     user_code = input("Enter the HOTP code from your authenticator app: ")
     if hotp_generator.verify(user_code, counter=initial_counter):
@@ -188,34 +195,6 @@ if __name__ == "__main__":
         print("OTP verification successful!")
     else:
         print("OTP verification failed!")
-
-# -*- coding: utf-8 -*-
 ```
-"""
-AllSafe Authentication Library
-
-A comprehensive Python library designed to simplify and enhance user
-authentication and authorization in your applications.
-"""
-
-__version__ = "0.1.0"
-__author__ = "daniel-destaw"
-__license__ = "MIT"
-__copyright__ = "Copyright (c) 2025 AllSafe"
-__github_link__ = "https://github.com/daniel-destaw/allsafe-auth.git"
-
-__readme__ = f"""
-# AllSafe Authentication Library
-
-[![GitHub](https://img.shields.io/github/license/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/blob/main/LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth)
-[![GitHub Issues](https://img.shields.io/github/issues/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/pulls/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/pulls)
-
-**GitHub Repository:** [{__github_link__}]({__github_link__})
-
-AllSafe Authentication offers a straightforward way to secure your Python applications with various authentication and authorization features. Check out the examples and documentation to get started! Contributions are welcome. Allsafe
-"""
-
+## AllSafe Authentication Library
 __all__ = ["__version__", "__author__", "__license__", "__copyright__", "__github_link__", "__readme__"]
-

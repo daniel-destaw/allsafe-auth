@@ -35,7 +35,8 @@ allsafe-auth/
 │       ├── qr_code_generator.py      # QR Code Generation (for TOTP)
 │       ├── config_loader.py          # Configuration Loader
 │       └── validators.py             # Input Validators
-├── examples/                         # Example Projects and Usage
+├── examples/    
+|   ├── usage_totp.py                   # Example Projects and Usage
 │   ├── flask_example/                # Flask Integration Example
 │   └── django_example/               # Django Integration Example
 ├── tests/                            # Unit and Integration Tests

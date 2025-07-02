@@ -1,7 +1,6 @@
 # examples/verify_totp_simple.py
 
 from allsafe_auth.authentication.totp import TOTP
-import time
 
 if __name__ == "__main__":
     # The same secret key used to generate the QR code

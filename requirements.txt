@@ -1,0 +1,6 @@
+python-ldap>=3.4.0  # For Active Directory Authentication
+ldap3>=2.9          # Alternative to python-ldap
+qrcode>=8.2         # For QR code generation
+Pillow>=11.2.1      # Image processing (required by qrcode)
+cryptography>=39.0  # For Encryption Utilities
+bcrypt>=4.0.1

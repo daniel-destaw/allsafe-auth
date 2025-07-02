@@ -6,8 +6,8 @@ with open("requirements.txt", "r") as f:
     requirements = f.read().splitlines()
 
 setup(
-    name="allsafe-authentication",
-    version="0.0.1",
+    name="allsafe_auth",
+    version="1.1.2",
     packages=find_packages(),
     install_requires=requirements,
     author="Daniel Destaw",
