@@ -1,173 +1,158 @@
+
+
 # AllSafe Authentication Library
 
 [![GitHub](https://img.shields.io/github/license/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/blob/main/LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth)
 [![GitHub Issues](https://img.shields.io/github/issues/daniel-destaw/allsafe-auth)](https://github.com/daniel-destaw/allsafe-auth/issues)
 
-**GitHub Repository:** [{__github_link__}]
+**GitHub Repository:** [AllSafe Authentication](https://github.com/daniel-destaw/allsafe-auth.git)
 
-https://github.com/daniel-destaw/allsafe-auth.git
+AllSafe Authentication is a comprehensive Python library designed to simplify and enhance user authentication and authorization in your applications. It supports a wide range of authentication methods, MFA, user/role management, and robust security features. Built to be modular and extensible, AllSafe can be tailored to your unique security needs.
 
-AllSafe Authentication is a comprehensive Python library designed to simplify and enhance user authentication and authorization in your applications. It provides a wide range of authentication methods, multi-factor authentication (MFA) capabilities, robust user and role management, and security features. It's designed to be modular and extensible, allowing you to tailor it to your specific security needs. AllSafe aims to be the cornerstone of your application's security, providing a robust, flexible, and easy-to-use solution for managing user identity and access.
+---
 
-## Features
+## 🔧 Features
 
-AllSafe Authentication offers a wide array of features, categorized as follows:
+### 🔐 Authentication Methods
 
-* **Authentication Methods:** The core of the library, providing various ways to verify user identity.
-* **Multi-Factor Authentication (MFA):** Enhances security by requiring users to provide multiple forms of verification.
-* **User and Role Management:** Tools for managing users, their roles, and permissions within your application.
-* **Security:** Features that protect your application and user data.
-* **Utilities:** Helper functions for common tasks related to authentication and security.
+* **Active Directory (LDAP)**
+* **TOTP (Time-based One-Time Password)**
+* **HOTP (HMAC-based One-Time Password)**
+* **Google Authenticator integration**
+* **OAuth2 & OpenID Connect**
+* **SAML-based Single Sign-On (SSO)**
 
-Here's a detailed breakdown of each category:
+### 🔑 Multi-Factor Authentication (MFA)
 
-### Authentication Methods:
+* Enforce MFA
+* Backup via SMS or email
 
-* **Active Directory:** Seamlessly integrate with existing Active Directory deployments for centralized user authentication. This allows users to use their existing network credentials to access your application. AllSafe handles the complexities of the LDAP protocol, making integration straightforward.
-* **TOTP (Time-based One-Time Password):** Support for time-based OTP generation, as used by popular authenticator apps like Google Authenticator, Authy, and Microsoft Authenticator. TOTP codes change frequently (e.g., every 30 seconds), providing a high level of security.
-* **HOTP (HMAC-based One-Time Password):** Support for counter-based OTP. HOTP codes are generated based on a counter that increments with each use. While less common than TOTP, HOTP can be useful in specific scenarios.
-* **Google Authenticator:** Streamlined integration with the Google Authenticator app, allowing users to easily set up and use TOTP authentication. This includes generating QR codes that users can scan with the app.
-* **OAuth2 and OpenID Connect:** Support for modern authentication and authorization protocols. OAuth2 enables secure delegated access, allowing users to grant applications limited access to their resources without sharing their credentials. OpenID Connect adds an identity layer to OAuth2, providing user identity information.
-* **SAML (Security Assertion Markup Language):** Support for SAML-based Single Sign-On (SSO). SAML allows users to log in once and access multiple web applications without re-authenticating, improving user experience and simplifying authentication management in enterprise environments.
+### 👥 User & Role Management
 
-### Multi-Factor Authentication (MFA):
+* User registration, login, update, deletion
+* Role-Based Access Control (RBAC)
+* Pluggable resolvers: LDAP, MySQL, PostgreSQL, MongoDB
 
-* **MFA Management:** Enforce and manage MFA for enhanced security. AllSafe provides tools to require users to set up and use MFA, and to manage their MFA devices.
-* **Backup Methods:** Support for backup MFA methods like SMS and email. In case a user loses access to their primary authentication device (e.g., their phone), they can use a backup method to regain access to their account.
+### 🛡️ Security
 
-### User and Role Management:
+* Password policies
+* Session management
+* Encryption utilities
+* Audit logging
 
-* **User Management:** User registration, authentication, and management. AllSafe provides functions for creating, updating, and deleting user accounts, as well as handling user authentication (e.g., verifying passwords).
-* **Role-Based Access Control (RBAC):** Define and manage user roles and permissions. RBAC allows you to control what actions users are allowed to perform within your application, based on their assigned roles.
-* **User/Role data persistence with pluggable resolvers:**
-    * **LDAP:** Resolve user and role information from LDAP servers. This allows you to integrate with existing directory services.
-    * **MySQL:** Resolve user and role information from MySQL databases.
-    * **PostgreSQL:** Resolve user and role information from PostgreSQL databases.
-    * **MongoDB:** Resolve user and role information from MongoDB.
-* **Resolver Management:** Abstraction layer for managing different resolvers. This allows you to easily switch between different data sources for user and role information.
+### 🧰 Utilities
 
-### Security:
+* QR Code generation
+* Configuration loader
+* Input validators
 
-* **Password Policies:** Enforce strong password policies and handle password resets. AllSafe can help you ensure that users choose strong passwords and provides tools for handling password resets in a secure manner.
-* **Session Management:** Securely manage user sessions. This includes creating, validating, and destroying sessions, as well as protecting against session hijacking.
-* **Encryption:** Utilities for data encryption. AllSafe provides functions for encrypting sensitive data, such as passwords and personal information.
-* **Audit Logging:** Log authentication and authorization activities for auditing and monitoring. This allows you to track who accessed what and when, which is essential for security and compliance.
+---
 
-### Utilities:
-
-* **QR Code Generation:** Generate QR codes for easy TOTP and HOTP setup. Users can scan these QR codes with their authenticator apps to quickly configure their accounts.
-* **Configuration Loader:** Flexible configuration loading. AllSafe provides a way to load configuration settings from various sources, such as files or environment variables.
-* **Input Validators:** Validate user input for security. This helps prevent common security vulnerabilities, such as SQL injection and cross-site scripting.
-
-## Installation
-
-You can install AllSafe Authentication using pip:
+## 📦 Installation
 
 ```bash
 pip install allsafe_auth
 ```
 
-## Ideally, the secret would be stored securely per user in your database
-```python
-secret = TOTPAuth.generate_secret()
-totp_auth = TOTPAuth(secret=secret)
+---
 
-# Generate QR code data for user to scan with their authenticator app
-account_name = "user@example.com"  #  Use the user's email or username
-issuer_name = "MyApplication"      #  The name of your application
-qr_code_data = QRCodeGenerator.generate_uri(issuer_name, account_name, secret)
-print(f"QR Code Data: {qr_code_data}") #  Display this to the user (e.g., in a web page)
-```
-## In a real application, you would display the QR code to the user  and prompt them to enter the TOTP code from their authenticator app. For this example, we'll just simulate the user entering a code.
+## 🚀 Usage Examples
+
+### ✅ TOTP Setup & Verification
 
 ```python
-user_code = input("Enter the TOTP code from your authenticator app: ")
-
-if totp_auth.verify(user_code):
-    print("Authentication successful!")
-else:
-    print("Authentication failed.")
-Quick Example (HOTP)from allsafe_auth.authentication.hotp import HOTP
+from allsafe_auth.authentication.totp import TOTP
 from allsafe_auth.utils.qr_code_generator import QRCodeGenerator
 
-if __name__ == "__main__":
-    # Example secret key (in a real application, this would be unique per user and stored securely)
-    secret_key = "JBSWY3DPEHPK3PXP"
-    account_name = "user@example.com"
-    issuer_name = "MyApplication"
-    qr_filename = "hotp_qr_code.png"  # Name of the PNG file to save
+# Generate secret and QR Code URI
+secret = TOTP.generate_secret()
+totp = TOTP(secret)
+uri = QRCodeGenerator.generate_uri("AllSafeApp", "user@example.com", secret)
+print(f"TOTP URI: {uri}")
 
-    # Initialize the HOTP generator
-    try:
-        hotp_generator = HOTP(secret_key)
-        initial_counter = 1 # Counter starts from 0 or 1
-        current_hotp = hotp_generator.generate(counter=initial_counter)  # Counter starts from 1, can be incremented
-        print(f"Current HOTP (Counter={initial_counter}): {current_hotp}")
-    except ValueError as e:
-        print(f"Error initializing HOTP: {e}")
-        exit()
-
-    # Generate the URI for Google Authenticator using the secret key for HOTP
-    try:
-        uri = QRCodeGenerator.generate_uri(issuer_name, account_name, secret_key, type='hotp', counter=initial_counter)
-
-        # Use QRCodeGenerator to save the QR code as a PNG file
-        QRCodeGenerator.save_to_file(uri, uri)
-        print(f"QR code for HOTP saved as {qr_filename}")
-    except Exception as e:
-        print(f"Error generating or saving QR code: {e}")
+# Verify code from user
+user_code = input("Enter TOTP code from your app: ")
+if totp.verify(user_code):
+    print("✅ TOTP verification successful.")
+else:
+    print("❌ TOTP verification failed.")
 ```
-## In a real application, you would display the QR code and prompt the user for the HOTP code.This is just a simulation for demonstration.
+
+---
+
+### 🔁 HOTP Generation, QR, and Verification
+
 ```python
-    user_code = input("Enter the HOTP code from your authenticator app: ")
-    if hotp_generator.verify(user_code, counter=initial_counter):
-        print("HOTP verification successful")
-    else:
-        print("HOTP verification failed")
-Quick Example (HOTP Verification)from allsafe_auth.authentication.hotp import HOTP
+from allsafe_auth.authentication.hotp import HOTP
+from allsafe_auth.utils.qr_code_generator import QRCodeGenerator
 
-if __name__ == "__main__":
-    # The same secret key used to generate the HOTP code
-    secret_key = "JBSWY3DPEHPK3PXP"
+# Generate HOTP and QR
+secret_key = "JBSWY3DPEHPK3PXP"
+counter = 1
+hotp = HOTP(secret_key)
+code = hotp.generate(counter=counter)
+print(f"Generated HOTP (counter={counter}): {code}")
 
-    # Initialize the HOTP verifier with the secret key
-    hotp_verifier = HOTP(secret_key)
+# QR Code URI
+uri = QRCodeGenerator.generate_uri("AllSafeApp", "user@example.com", secret_key, type='hotp', counter=counter)
+QRCodeGenerator.save_to_file(uri, "hotp_qr_code.png")
+print("QR code saved to hotp_qr_code.png")
 
-    # In a real application, you would get the user's HOTP input
-    user_hotp = input("Enter the HOTP code from your authenticator app: ")
-    counter_value = int(input("Enter the counter value: "))  #  Important:  You MUST track the counter.
-
-    # Verify the HOTP code
-    if hotp_verifier.verify(user_hotp, counter=counter_value):
-        print("HOTP code is valid.")
-    else:
-        print("HOTP code is invalid.")
+# Verify user input
+user_code = input("Enter the HOTP code: ")
+if hotp.verify(user_code, counter=counter):
+    print("✅ HOTP verification successful.")
+else:
+    print("❌ HOTP verification failed.")
 ```
-    #  IMPORTANT:  For HOTP, you MUST increment and store the counter value 
-    #  after each successful verification.  This is critical for security.
-    #  The next verification must use a counter value that is greater 
-    #  than the one used for the previous verification.
-    #  For example:
-    #  next_counter_value = counter_value + 1
-    #  Store next_counter_value in your database, associated with the user.
-Quick Example (TOTP Verification)from allsafe_auth.authentication.totp import TOTP
+
+> ⚠️ Always increment and persist the HOTP counter securely after each verification.
+
+---
+
+### 🔒 Password Policy Validation
+
 ```python
-if __name__ == "__main__":
-    # The same secret key used to generate the TOTP code
-    secret_key = "JBSWY3DPEHPK3PXP"
+from allsafe_auth.security.password_manager import PasswordManager, PasswordPolicy
 
-    # Initialize the TOTP verifier
-    totp_verifier = TOTP(secret_key)
+pm_none = PasswordManager(policy=PasswordPolicy.no_restriction())
+pm_medium = PasswordManager(policy=PasswordPolicy.medium())
+pm_strong = PasswordManager(policy=PasswordPolicy.strong())
 
-    # Prompt the user to enter the TOTP from their authenticator app
-    user_otp = input("Enter the TOTP code from your authenticator app: ")
-
-    # Verify if the user's OTP is valid
-    if totp_verifier.verify(user_otp):
-        print("OTP verification successful!")
-    else:
-        print("OTP verification failed!")
+print(pm_none.validate_password_strength("123"))               # ✅ True
+print(pm_medium.validate_password_strength("abc123"))          # ❌ False
+print(pm_medium.validate_password_strength("abc12345"))        # ✅ True
+print(pm_strong.validate_password_strength("Abc123!@#def"))    # ✅ True
+print(pm_strong.validate_password_strength("123456789012"))    # ❌ False
 ```
-## AllSafe Authentication Library
-__all__ = ["__version__", "__author__", "__license__", "__copyright__", "__github_link__", "__readme__"]
+
+---
+
+## 📁 Module Export Declaration
+
+In your `__init__.py`, export key metadata like so:
+
+```python
+__all__ = [
+    "__version__",
+    "__author__",
+    "__license__",
+    "__copyright__",
+    "__github_link__",
+    "__readme__"
+]
+```
+
+---
+
+## 🙌 Contributing
+
+We welcome contributions! Please check the [issues](https://github.com/daniel-destaw/allsafe-auth/issues) and submit a pull request.
+
+---
+
+## 📜 License
+
+This project is licensed under the terms of the [MIT License](https://github.com/daniel-destaw/allsafe-auth/blob/main/LICENSE).
+
