@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="allsafe-auth",
-    version="1.1.4",
+    version="1.1.5",
     packages=find_packages(),
     install_requires=[
         "pycryptodome>=3.0.0",
