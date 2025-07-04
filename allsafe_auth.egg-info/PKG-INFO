@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: allsafe-auth
-Version: 1.1.2
+Version: 1.1.4
 Summary: A complete authentication library including TOTP, HOTP, Active Directory, and more.
 Author: Daniel Destaw
 Author-email: daniel@allsafe.com
@@ -10,6 +10,7 @@ Classifier: Operating System :: OS Independent
 Requires-Python: >=3.6
 Description-Content-Type: text/markdown
 License-File: LICENSE
+Requires-Dist: pycryptodome>=3.0.0
 Requires-Dist: python-ldap>=3.4.0
 Requires-Dist: ldap3>=2.9
 Requires-Dist: qrcode>=8.2

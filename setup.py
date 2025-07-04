@@ -3,9 +3,10 @@ from setuptools import setup, find_packages
 
 setup(
     name="allsafe-auth",
-    version="1.1.2",
+    version="1.1.4",
     packages=find_packages(),
     install_requires=[
+        "pycryptodome>=3.0.0",
         "python-ldap>=3.4.0",
         "ldap3>=2.9",
         "qrcode>=8.2",
