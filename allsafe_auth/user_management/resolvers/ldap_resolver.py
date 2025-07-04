@@ -1,50 +1,58 @@
-import ldap
-from ldap.filter import escape_filter_chars
+from ldap3 import Server, Connection, ALL, NTLM
+from typing import Optional, List, Dict
+
 
 class LDAPResolver:
-    def __init__(self, ldap_server, base_dn, user_dn, password):
-        self.ldap_server = ldap_server
-        self.base_dn = base_dn
-        self.user_dn = user_dn
-        self.password = password
-        self.connection = None
+    def __init__(self, server_ip: str, domain: str, search_base: str, use_ssl: bool = False, port: int = None):
+        self.server_ip = server_ip
+        self.domain = domain
+        self.search_base = search_base
+        self.use_ssl = use_ssl
+        self.port = port or (636 if use_ssl else 389)
 
-    def connect(self):
+        self.server = Server(self.server_ip, port=self.port, use_ssl=self.use_ssl, get_info=ALL)
+
+    def get_user(self, username: str, password: str) -> Optional[Dict]:
+        """Try to bind as the given user and return their attributes."""
+        user_dn = f"{self.domain}\\{username}"
         try:
-            self.connection = ldap.initialize(self.ldap_server)
-            self.connection.simple_bind_s(self.user_dn, self.password)
-        except ldap.LDAPError as e:
-            raise ConnectionError(f"Failed to connect to LDAP server: {e}")
+            with Connection(self.server, user=user_dn, password=password, authentication=NTLM) as conn:
+                if not conn.bind():
+                    return None
 
-    def search_user(self, username):
-        if not self.connection:
-            raise ConnectionError("Not connected to LDAP server.")
+                # Search for the user
+                conn.search(
+                    search_base=self.search_base,
+                    search_filter=f'(sAMAccountName={username})',
+                    attributes=['*']
+                )
+                if len(conn.entries) == 0:
+                    return None
 
-        search_filter = f"(uid={escape_filter_chars(username)})"
+                return conn.entries[0].entry_attributes_as_dict
+        except Exception as e:
+            print(f"[LDAP Resolver] Error fetching user: {e}")
+            return None
+
+    def list_users(self, admin_username: str, admin_password: str) -> List[Dict]:
+        """List all users in AD using an admin account."""
+        admin_dn = f"{self.domain}\\{admin_username}"
+        users = []
+
         try:
-            result = self.connection.search_s(self.base_dn, ldap.SCOPE_SUBTREE, search_filter)
-            return result if result else None
-        except ldap.LDAPError as e:
-            raise RuntimeError(f"Failed to search user: {e}")
+            with Connection(self.server, user=admin_dn, password=admin_password, authentication=NTLM) as conn:
+                if not conn.bind():
+                    raise PermissionError("Failed to bind as admin for listing users")
 
-    def authenticate_user(self, username, password):
-        user_data = self.search_user(username)
-        if not user_data:
-            return False
+                conn.search(
+                    search_base=self.search_base,
+                    search_filter='(&(objectClass=user)(objectCategory=person))',
+                    attributes=['sAMAccountName', 'displayName', 'mail', 'memberOf']
+                )
 
-        user_dn = user_data[0][0]
-        try:
-            temp_connection = ldap.initialize(self.ldap_server)
-            temp_connection.simple_bind_s(user_dn, password)
-            return True
-        except ldap.INVALID_CREDENTIALS:
-            return False
-        except ldap.LDAPError as e:
-            raise RuntimeError(f"Failed to authenticate user: {e}")
-        finally:
-            temp_connection.unbind_s()
+                for entry in conn.entries:
+                    users.append(entry.entry_attributes_as_dict)
+        except Exception as e:
+            print(f"[LDAP Resolver] Error listing users: {e}")
 
-    def disconnect(self):
-        if self.connection:
-            self.connection.unbind_s()
-            self.connection = None
+        return users

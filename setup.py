@@ -1,7 +1,8 @@
+import os
 from setuptools import setup, find_packages
 
 setup(
-    name="allsafe-auth",  # Use hyphen for PyPI (standard)
+    name="allsafe-auth",
     version="1.1.2",
     packages=find_packages(),
     install_requires=[
